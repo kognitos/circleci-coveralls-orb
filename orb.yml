@@ -133,6 +133,7 @@ commands:
     steps:
       - run:
           name: Upload Coverage Result To Coveralls
+          shell: /bin/bash
           command: |
             if << parameters.parallel_finished >>; then
               curl "<< parameters.coveralls_endpoint >>/webhook?repo_token=$<< parameters.token >>" \
