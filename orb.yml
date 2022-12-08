@@ -151,7 +151,7 @@ commands:
             fi
 
             export COVERALLS_ENDPOINT=<< parameters.coveralls_endpoint >>
-
+            export COVERALLS_SERVICE_NUMBER=<< parameters.build_num >>
             export COVERALLS_FLAG_NAME="<< parameters.flag_name >>"
 
             if << parameters.parallel >>; then
