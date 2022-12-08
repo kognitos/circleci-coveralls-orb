@@ -138,7 +138,7 @@ commands:
           command: |
             if << parameters.parallel_finished >>; then
               curl "<< parameters.coveralls_endpoint >>/webhook?repo_token=$<< parameters.token >>" \
-                -d "payload[build_num]=$<< parameters.build_num >>&payload[status]=done"
+                -d "payload[build_num]=$<< parameters.build_num >>&payload[status]=done" || true
               exit 0
             fi
 
@@ -165,7 +165,7 @@ commands:
             fi
 
             if << parameters.verbose >>; then
-              cat << parameters.path_to_lcov >> | coveralls --verbose
+              cat << parameters.path_to_lcov >> | coveralls --verbose || true
             else
-              cat << parameters.path_to_lcov >> | coveralls
+              cat << parameters.path_to_lcov >> | coveralls || true
             fi
