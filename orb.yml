@@ -126,13 +126,18 @@ commands:
         description: Set to true for verbose output from the Coveralls API push.
         type: boolean
         default: false
+      build_num:
+        description: The environment variable to be used to set the build_num for the coveralls upload job
+        type: string
+        default: 'CIRCLE_BUILD_NUM'
     steps:
       - run:
           name: Upload Coverage Result To Coveralls
+          shell: /bin/bash
           command: |
             if << parameters.parallel_finished >>; then
               curl "<< parameters.coveralls_endpoint >>/webhook?repo_token=$<< parameters.token >>" \
-                -d "payload[build_num]=$CIRCLE_WORKFLOW_ID&payload[status]=done"
+                -d "payload[build_num]=$<< parameters.build_num >>&payload[status]=done"
               exit 0
             fi
 
